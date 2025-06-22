@@ -3,8 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/ic_launcher_foreground"
     android:layout_height="match_parent"
+    android:background="@color/design_default_color_background"
+    android:backgroundTint="#FFFFFF"
+    android:textAlignment="center"
     tools:context=".MainActivity">
 
     <TextView
@@ -25,5 +27,21 @@
         android:text="Button"
         tools:layout_editor_absoluteX="160dp"
         tools:layout_editor_absoluteY="497dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="204dp"
+        android:layout_height="116dp"
+        android:layout_marginTop="104dp"
+        android:background="#FBDA06"
+        android:backgroundTint="#BA8B8B"
+        android:text="Cost Estimation"
+        android:textAlignment="center"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
