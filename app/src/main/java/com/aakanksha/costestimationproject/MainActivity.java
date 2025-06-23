@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     ClientAdapter adapter;
     ArrayList<Client> clients;
     FloatingActionButton fab;
+    DatabaseHelper dbHelper; // SQLite database
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,39 +26,38 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerViewClients);
         fab = findViewById(R.id.fabAddClient);
+        dbHelper = new DatabaseHelper(this);
 
-        // Create empty list (no hardcoded clients)
-        clients = new ArrayList<>();
+        // 1. Load clients from database
+        clients = dbHelper.getAllClients();
 
         adapter = new ClientAdapter(clients);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        // Show form dialog when FAB is clicked
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showAddClientDialog();
-            }
-        });
+        fab.setOnClickListener(view -> showAddClientDialog());
     }
 
     private void showAddClientDialog() {
-        // Input field
         final EditText input = new EditText(this);
         input.setHint("Enter client name");
         input.setPadding(40, 40, 40, 40);
 
-        // Dialog box
         new AlertDialog.Builder(this)
                 .setTitle("Add New Client")
                 .setView(input)
                 .setPositiveButton("Save", (dialog, which) -> {
                     String clientName = input.getText().toString().trim();
                     if (!clientName.isEmpty()) {
-                        clients.add(new Client(clientName)); // add to list
-                        adapter.notifyItemInserted(clients.size() - 1); // refresh list
-                        Toast.makeText(MainActivity.this, "Client added", Toast.LENGTH_SHORT).show();
+                        // Save to database
+                        boolean inserted = dbHelper.insertClient(clientName);
+                        if (inserted) {
+                            clients.add(new Client(clientName));
+                            adapter.notifyItemInserted(clients.size() - 1);
+                            Toast.makeText(MainActivity.this, "Client added", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Error saving client", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         Toast.makeText(MainActivity.this, "Name cannot be empty", Toast.LENGTH_SHORT).show();
                     }
