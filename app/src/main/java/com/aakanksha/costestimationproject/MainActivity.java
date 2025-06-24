@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     ClientAdapter adapter;
     ArrayList<Client> clients;
     FloatingActionButton fab;
-    DatabaseHelper dbHelper;
+    DatabaseHelper dbHelper; // SQLite helper
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +28,10 @@ public class MainActivity extends AppCompatActivity {
         fab = findViewById(R.id.fabAddClient);
         dbHelper = new DatabaseHelper(this);
 
+        // Load clients from database
         clients = dbHelper.getAllClients();
 
+        // ✅ Pass context to adapter
         adapter = new ClientAdapter(clients, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -48,10 +50,10 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Save", (dialog, which) -> {
                     String clientName = input.getText().toString().trim();
                     if (!clientName.isEmpty()) {
-                        // Insert client and get the inserted ID
-                        int clientId = dbHelper.insertClientAndReturnId(clientName);
-                        if (clientId != -1) {
-                            clients.add(new Client(clientId, clientName));
+                        // Save to database
+                        boolean inserted = dbHelper.insertClient(clientName);
+                        if (inserted) {
+                            clients.add(new Client(clientName));
                             adapter.notifyItemInserted(clients.size() - 1);
                             Toast.makeText(MainActivity.this, "Client added", Toast.LENGTH_SHORT).show();
                         } else {

@@ -10,6 +10,9 @@ public class Client {
         this.name = name;
     }
 
+    public Client(String clientName) {
+    }
+
     // Getter methods
     public int getId() {
         return id;

@@ -24,6 +24,9 @@ public class Box {
         this.clientId = clientId;
     }
 
+    public Box(String foldingCarton, double length) {
+    }
+
     public String getName() {
         return name;
     }
