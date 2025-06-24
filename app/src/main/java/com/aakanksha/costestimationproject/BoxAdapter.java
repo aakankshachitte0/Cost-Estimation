@@ -25,7 +25,7 @@ public class BoxAdapter extends RecyclerView.Adapter<BoxAdapter.BoxViewHolder> {
     public void onBindViewHolder(BoxViewHolder holder, int position) {
         Box box = boxList.get(position);
         holder.boxName.setText(box.getName());
-        holder.boxCost.setText("₹" + box.getCost());
+        holder.boxCost.setText("₹" + box.getFinalCost());
     }
 
     @Override
