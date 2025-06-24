@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/inputBoxName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Box Name"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/inputLength"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Length"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/inputHeight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Height"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/inputFlutePapers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Number of Flute Papers"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/inputPlainPapers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Number of Plain Papers"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/inputPaperCost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Paper Cost"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/inputQualityFactor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Quality Factor"
+            android:inputType="numberDecimal" />
+
+    </LinearLayout>
+</ScrollView>
