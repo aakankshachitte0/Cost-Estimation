@@ -1,5 +1,7 @@
 package com.aakanksha.costestimationproject;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +13,12 @@ import java.util.List;
 public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientViewHolder> {
 
     private List<Client> clientList;
+    private Context context;
 
-    public ClientAdapter(List<Client> clients) {
+    // Updated constructor to include context
+    public ClientAdapter(List<Client> clients, Context context) {
         this.clientList = clients;
+        this.context = context;
     }
 
     @Override
@@ -26,6 +31,13 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
     public void onBindViewHolder(ClientViewHolder holder, int position) {
         Client client = clientList.get(position);
         holder.clientName.setText(client.getName());
+
+        // Open BoxListActivity when clicked
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, BoxListActivity.class);
+            intent.putExtra("client_name", client.getName()); // pass client name
+            context.startActivity(intent);
+        });
     }
 
     @Override

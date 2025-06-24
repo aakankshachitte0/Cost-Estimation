@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     ClientAdapter adapter;
     ArrayList<Client> clients;
     FloatingActionButton fab;
-    DatabaseHelper dbHelper; // SQLite database
+    DatabaseHelper dbHelper; // SQLite helper
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +28,11 @@ public class MainActivity extends AppCompatActivity {
         fab = findViewById(R.id.fabAddClient);
         dbHelper = new DatabaseHelper(this);
 
-        // 1. Load clients from database
+        // Load clients from database
         clients = dbHelper.getAllClients();
 
-        adapter = new ClientAdapter(clients);
+        // ✅ Pass context to adapter
+        adapter = new ClientAdapter(clients, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
