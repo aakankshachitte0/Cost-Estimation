@@ -1,5 +1,7 @@
 package com.aakanksha.costestimationproject;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +12,11 @@ import java.util.List;
 public class BoxAdapter extends RecyclerView.Adapter<BoxAdapter.BoxViewHolder> {
 
     private List<Box> boxList;
+    private Context context;  // ✅ Add context for navigation
 
-    public BoxAdapter(List<Box> boxList) {
+    public BoxAdapter(List<Box> boxList, Context context) {
         this.boxList = boxList;
+        this.context = context;
     }
 
     @Override
@@ -25,7 +29,21 @@ public class BoxAdapter extends RecyclerView.Adapter<BoxAdapter.BoxViewHolder> {
     public void onBindViewHolder(BoxViewHolder holder, int position) {
         Box box = boxList.get(position);
         holder.boxName.setText(box.getName());
-        holder.boxCost.setText("₹" + box.getFinalCost());
+        holder.boxCost.setText("₹" + String.format("%.2f", box.getFinalCost()));
+
+        // ✅ On click, go to BoxDetailsActivity
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, BoxDetailsActivity.class);
+            intent.putExtra("box_name", box.name);
+            intent.putExtra("length", box.length);
+            intent.putExtra("height", box.height);
+            intent.putExtra("flute_papers", box.flutePapers);
+            intent.putExtra("plain_papers", box.plainPapers);
+            intent.putExtra("paper_cost", box.paperCost);
+            intent.putExtra("quality_factor", box.qualityFactor);
+            intent.putExtra("final_cost", box.finalCost);
+            context.startActivity(intent);
+        });
     }
 
     @Override

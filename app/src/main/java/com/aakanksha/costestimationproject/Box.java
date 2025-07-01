@@ -11,8 +11,10 @@ public class Box {
     public double finalCost;
     public int clientId;
 
+    // 👉 Full constructor for database saving and usage
     public Box(String name, double length, double height, int flutePapers, int plainPapers,
-               double paperCost, double qualityFactor, double finalCost, int clientId) {
+               double paperCost, double qualityFactor, int clientId) {
+
         this.name = name;
         this.length = length;
         this.height = height;
@@ -20,13 +22,19 @@ public class Box {
         this.plainPapers = plainPapers;
         this.paperCost = paperCost;
         this.qualityFactor = qualityFactor;
-        this.finalCost = finalCost;
         this.clientId = clientId;
+
+        // ✅ Calculate final cost using the formula
+        this.finalCost = height * length * flutePapers * plainPapers * paperCost + qualityFactor;
     }
 
-    public Box(String foldingCarton, double length) {
+    // 👉 Minimal constructor (used in dummy data or display-only)
+    public Box(String name, double finalCost) {
+        this.name = name;
+        this.finalCost = finalCost;
     }
 
+    // Getters (optional)
     public String getName() {
         return name;
     }

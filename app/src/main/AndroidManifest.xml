@@ -25,6 +25,7 @@
 
         <!-- New screen to show box list -->
         <activity android:name=".BoxListActivity" />
+        <activity android:name=".BoxDetailsActivity" />
 
     </application>
 

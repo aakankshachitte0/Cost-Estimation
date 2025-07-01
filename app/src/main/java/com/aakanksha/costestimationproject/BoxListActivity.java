@@ -19,6 +19,10 @@ public class BoxListActivity extends AppCompatActivity {
     BoxAdapter adapter;
     TextView clientNameText;
     FloatingActionButton fabAddBox;
+    DatabaseHelper dbHelper;
+
+    int clientId;
+    String clientName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,22 +32,22 @@ public class BoxListActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewBoxes);
         clientNameText = findViewById(R.id.clientNameText);
         fabAddBox = findViewById(R.id.fabAddBox);
+        dbHelper = new DatabaseHelper(this);
 
-        // Get client name from previous screen
-        String clientName = getIntent().getStringExtra("client_name");
+        // ✅ Get client ID and name from intent
+        clientId = getIntent().getIntExtra("client_id", -1);
+        clientName = getIntent().getStringExtra("client_name");
+
         clientNameText.setText("Boxes ordered by: " + clientName);
 
-        // Hardcoded box list
-        boxList = new ArrayList<>();
-        boxList.add(new Box("Corrugated Box", 15.5));
-        boxList.add(new Box("Rigid Box", 25.0));
-        boxList.add(new Box("Folding Carton", 12.75));
-
-        adapter = new BoxAdapter(boxList);
+        // ✅ Load boxes from DB for this client
+        // Load boxes from DB for this client
+        boxList = dbHelper.getBoxesForClient(clientId);
+        adapter = new BoxAdapter(boxList, this); // ✅ Pass context
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        // Show form when FAB is clicked
+
         fabAddBox.setOnClickListener(v -> showAddBoxFormDialog());
     }
 
@@ -62,9 +66,31 @@ public class BoxListActivity extends AppCompatActivity {
                 .setTitle("Add New Box")
                 .setView(dialogView)
                 .setPositiveButton("Calculate", (dialog, which) -> {
-                    // For now just display a toast, later we'll calculate cost
-                    String boxName = inputBoxName.getText().toString().trim();
-                    Toast.makeText(this, "Box \"" + boxName + "\" submitted (cost coming soon)", Toast.LENGTH_SHORT).show();
+                    try {
+                        String name = inputBoxName.getText().toString().trim();
+                        double length = Double.parseDouble(inputLength.getText().toString());
+                        double height = Double.parseDouble(inputHeight.getText().toString());
+                        int flute = Integer.parseInt(inputFlutePapers.getText().toString());
+                        int plain = Integer.parseInt(inputPlainPapers.getText().toString());
+                        double paperCost = Double.parseDouble(inputPaperCost.getText().toString());
+                        double qualityFactor = Double.parseDouble(inputQualityFactor.getText().toString());
+
+                        // ✅ Create full box and auto-calculate cost
+                        Box newBox = new Box(name, length, height, flute, plain, paperCost, qualityFactor, clientId);
+
+                        // ✅ Save to DB
+                        boolean saved = dbHelper.insertBox(newBox);
+                        if (saved) {
+                            boxList.add(newBox);
+                            adapter.notifyItemInserted(boxList.size() - 1);
+                            Toast.makeText(this, "Box saved! Cost: ₹" + String.format("%.2f", newBox.finalCost), Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(this, "Failed to save box", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } catch (Exception e) {
+                        Toast.makeText(this, "Please fill all fields correctly", Toast.LENGTH_SHORT).show();
+                    }
                 })
                 .setNegativeButton("Cancel", null)
                 .show();

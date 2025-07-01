@@ -134,7 +134,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 double finalCost = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_FINAL_COST));
                 int cid = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_CLIENT_REF));
 
-                boxes.add(new Box(name, length, height, flute, plain, paperCost, qualityFactor, finalCost, cid));
+                boxes.add(new Box(name, length, height, flute, plain, paperCost, qualityFactor, cid));
             } while (cursor.moveToNext());
         }
 
