@@ -5,10 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     ClientAdapter adapter;
     ArrayList<Client> clients;
     FloatingActionButton fab;
-    DatabaseHelper dbHelper; // SQLite helper
+    DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +31,10 @@ public class MainActivity extends AppCompatActivity {
         fab = findViewById(R.id.fabAddClient);
         dbHelper = new DatabaseHelper(this);
 
-        // Load clients from database
+        // Load clients from DB
         clients = dbHelper.getAllClients();
 
-        // ✅ Pass context to adapter
-        adapter = new ClientAdapter(clients, this);
+        adapter = new ClientAdapter(clients, this); // Pass context
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
@@ -49,11 +51,12 @@ public class MainActivity extends AppCompatActivity {
                 .setView(input)
                 .setPositiveButton("Save", (dialog, which) -> {
                     String clientName = input.getText().toString().trim();
+
                     if (!clientName.isEmpty()) {
-                        // Save to database
-                        boolean inserted = dbHelper.insertClient(clientName);
-                        if (inserted) {
-                            clients.add(new Client(clientName));
+                        int newClientId = dbHelper.insertClientAndReturnId(clientName);
+
+                        if (newClientId != -1) {
+                            clients.add(new Client(newClientId, clientName));
                             adapter.notifyItemInserted(clients.size() - 1);
                             Toast.makeText(MainActivity.this, "Client added", Toast.LENGTH_SHORT).show();
                         } else {
