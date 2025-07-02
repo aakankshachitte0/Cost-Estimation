@@ -1,62 +1,40 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Top Title Bar -->
     <LinearLayout
-        android:id="@+id/headerLayout"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:background="#86B1D1"
-        android:padding="10dp">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="Clients"
-            android:textAlignment="center"
-            android:textColor="#0F1A52"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#51799D"
-            android:contentDescription="Search Icon"
-            android:padding="8dp"
-            android:src="@android:drawable/ic_menu_search" />
-    </LinearLayout>
-
-    <!-- RecyclerView below the title -->
-
-    <!-- Add client button -->
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewClients"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/headerLayout"
-        android:layout_marginTop="-3dp"
-        android:paddingBottom="80dp" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Client List"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:padding="16dp"
+            android:background="@color/purple_200" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewClients"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="8dp" />
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddClient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="339dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_input_add" />
-</RelativeLayout>
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/baseline_add_24"
+        app:backgroundTint="@color/purple_500"
+        app:tint="@android:color/white" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -42,19 +42,15 @@
         }
 
         private void showAddClientDialog() {
-            final EditText input = new EditText(this);
-            input.setHint("Enter client name");
-            input.setPadding(40, 40, 40, 40);
+            View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_client, null);
+            EditText input = dialogView.findViewById(R.id.inputClientName);
 
             new AlertDialog.Builder(this)
-                    .setTitle("Add New Client")
-                    .setView(input)
+                    .setView(dialogView)
                     .setPositiveButton("Save", (dialog, which) -> {
                         String clientName = input.getText().toString().trim();
-
                         if (!clientName.isEmpty()) {
                             int newClientId = dbHelper.insertClientAndReturnId(clientName);
-
                             if (newClientId != -1) {
                                 clients.add(new Client(newClientId, clientName));
                                 adapter.notifyItemInserted(clients.size() - 1);
@@ -69,4 +65,5 @@
                     .setNegativeButton("Cancel", null)
                     .show();
         }
+
     }
