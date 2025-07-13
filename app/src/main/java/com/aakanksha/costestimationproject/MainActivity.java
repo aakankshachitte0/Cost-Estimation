@@ -27,12 +27,13 @@
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
 
+
             recyclerView = findViewById(R.id.recyclerViewClients);
             fab = findViewById(R.id.fabAddClient);
             dbHelper = new DatabaseHelper(this);
 
             // Load clients from DB
-            clients = dbHelper.getAllClients();
+            clients = dbHelper.getAllClients(); 
 
             adapter = new ClientAdapter(clients, this); // Pass context
             recyclerView.setLayoutManager(new LinearLayoutManager(this));

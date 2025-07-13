@@ -1,62 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="16dp">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:padding="20dp"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardBackgroundColor="@color/light_purple"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="6dp"
+        app:strokeColor="@color/purple_200"
+        app:strokeWidth="1dp">
 
-        <EditText
-            android:id="@+id/inputBoxName"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Box Name"
-            android:inputType="text" />
+            android:background="@color/light_purple"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-        <EditText
-            android:id="@+id/inputLength"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Length"
-            android:inputType="numberDecimal" />
+            <EditText
+                android:id="@+id/inputBoxName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="@color/purple_200"
+                android:fontFamily="sans-serif-medium"
+                android:hint="Box Name"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/inputHeight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Height"
-            android:inputType="numberDecimal" />
+            <EditText
+                android:id="@+id/inputLength"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="@color/purple_200"
+                android:hint="Length"
+                android:inputType="numberDecimal"
+                android:minHeight="48dp"
+                android:textColor="#000000"
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/inputFlutePapers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Number of Flute Papers"
-            android:inputType="number" />
+            <EditText
+                android:id="@+id/inputHeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="@color/purple_200"
+                android:hint="Height"
+                android:inputType="numberDecimal"
+                android:minHeight="48dp"
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/inputPlainPapers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Number of Plain Papers"
-            android:inputType="number" />
+            <EditText
+                android:id="@+id/inputFlutePapers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="@color/purple_200"
+                android:hint="Number of Flute Papers"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/inputPaperCost"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Paper Cost"
-            android:inputType="numberDecimal" />
+            <EditText
+                android:id="@+id/inputPlainPapers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="@color/purple_200"
+                android:hint="Number of Plain Papers"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/inputQualityFactor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Quality Factor"
-            android:inputType="numberDecimal" />
+            <EditText
+                android:id="@+id/inputPaperCost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="@color/purple_200"
+                android:hint="Paper Cost"
+                android:inputType="numberDecimal"
+                android:minHeight="48dp"
+                android:textStyle="bold" />
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/inputQualityFactor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/purple_200"
+                android:hint="Quality Factor"
+                android:inputType="numberDecimal"
+                android:minHeight="48dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </ScrollView>
